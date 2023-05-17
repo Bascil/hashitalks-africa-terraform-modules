@@ -8,7 +8,7 @@ resource "google_project_service" "trigger_apis" {
 
 resource "google_cloudbuild_trigger" "trigger" {
   project     = var.project
-  name        = "${var.branch}-${var.name}-trigger"
+  name        = "${var.branch}-${var.name}-build-trigger"
   description = "${title(var.name)} Trigger"
 
   trigger_template {
