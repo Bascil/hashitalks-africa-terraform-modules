@@ -106,5 +106,5 @@ resource "google_project_iam_member" "workload_identity_roles" {
 resource "google_project_iam_member" "workload_identity_user" {
   project = var.project
   role    = "roles/iam.workloadIdentityUser"
-  member  = "serviceAccount:${var.project}.svc.id.goog[/workload-identity-user]"
+  member  = "serviceAccount:${var.project}.svc.id.goog[${var.branch}/workload-identity-user]"
 }
