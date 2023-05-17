@@ -1,12 +1,10 @@
 output "id" {
   description = "The id of the cluster master."
-
   value = google_container_cluster.cluster.id
 }
 
 output "cluster" {
   description = "The k8s cluster."
-
   value = google_container_cluster.cluster
 }
 

@@ -1,5 +1,4 @@
 variable "cluster" {
-  type        = string
   description = "The name cluster"
 }
 
