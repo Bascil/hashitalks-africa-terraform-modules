@@ -13,8 +13,8 @@ resource "google_cloudbuild_trigger" "trigger" {
 
   trigger_template {
     # use tags on master branch
-    branch_name = var.branch_name != "master" ? "^${var.branch}$" : null
-    tag_name    = var.branch_name == "master" ? ".*" : null
+    branch_name = var.branch != "master" ? "^${var.branch}$" : null
+    tag_name    = var.branch == "master" ? ".*" : null
 
     repo_name = "github_${var.repo}"
   }
