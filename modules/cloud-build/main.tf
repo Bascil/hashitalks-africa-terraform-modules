@@ -6,9 +6,9 @@ resource "google_project_service" "trigger_apis" {
   disable_on_destroy = false
 }
 
-resource "google_cloudbuild_trigger" "infra-trigger" {
+resource "google_cloudbuild_trigger" "trigger" {
   project     = var.project
-  name        = "${var.branch}-${var.name}-infra-trigger"
+  name        = "${var.branch}-${var.name}-trigger"
   description = "${title(var.name)} Trigger"
 
   trigger_template {
@@ -16,42 +16,8 @@ resource "google_cloudbuild_trigger" "infra-trigger" {
     branch_name = var.branch != "master" ? "^${var.branch}$" : null
     tag_name    = var.branch == "master" ? ".*" : null
 
-    repo_name = "github_hashitalks-africa-terraform-live"
+    repo_name = "github_${var.repo}"
   }
 
   filename = "${var.branch}.cloudbuild.yaml"
 }
-
-resource "google_cloudbuild_trigger" "k8s-trigger" {
-  project     = var.project
-  name        = "${var.branch}-${var.name}-k8s-trigger"
-  description = "${title(var.name)} Trigger"
-
-  trigger_template {
-    # use tags on master branch
-    branch_name = var.branch != "master" ? "^${var.branch}$" : null
-    tag_name    = var.branch == "master" ? ".*" : null
-
-    repo_name = "github_hashitalks-africa-kubernetes-manifests"
-  }
-
-  filename = "${var.branch}.cloudbuild.yaml"
-}
-
-resource "google_cloudbuild_trigger" "demo-trigger" {
-  project     = var.project
-  name        = "${var.branch}-${var.name}-demo-trigger"
-  description = "${title(var.name)} Trigger"
-
-  trigger_template {
-    # use tags on master branch
-    branch_name = var.branch != "master" ? "^${var.branch}$" : null
-    tag_name    = var.branch == "master" ? ".*" : null
-
-    repo_name = "github_hashitalks-africa-nest-demo-microservice"
-  }
-
-  filename = "${var.branch}.cloudbuild.yaml"
-}
-
-
