@@ -1,7 +1,9 @@
 # Enable APIs
 resource "google_project_service" "trigger_apis" {
   for_each = toset([
-    "cloudresourcemanager.googleapis.com", "cloudkms.googleapis.com"
+    "cloudresourcemanager.googleapis.com",
+    "iam.googleapis.com",
+    "cloudkms.googleapis.com"
   ])
 
   service            = each.key
