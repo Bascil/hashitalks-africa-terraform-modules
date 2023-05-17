@@ -10,9 +10,8 @@ resource "google_project_service" "service" {
   disable_on_destroy = false
 }
 
-
 resource "google_compute_network" "main_network" {
-  name                    = "main-network"
+  name                    = var.vpc_name
   auto_create_subnetworks = false
   routing_mode            = "GLOBAL"
 
@@ -22,22 +21,12 @@ resource "google_compute_network" "main_network" {
 }
 
 resource "google_compute_subnetwork" "main_subnetwork" {
-  name          = "main-subnetwork"
-  ip_cidr_range = "10.10.10.0/24"
+  name          = var.vpc_subnet
+  ip_cidr_range = var.vpc_cidr
   network       = google_compute_network.main_network.id
   region        = var.region
 
-  secondary_ip_range = [
-    {
-      range_name    = "services"
-      ip_cidr_range = "10.10.11.0/24"
-    },
-    {
-      range_name    = "pods"
-      ip_cidr_range = "10.1.0.0/20"
-    }
-  ]
-
+  secondary_ip_range = var.ip_ranges
   private_ip_google_access = true
 
 }
