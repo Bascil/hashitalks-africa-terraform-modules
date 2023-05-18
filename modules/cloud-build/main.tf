@@ -16,7 +16,7 @@ resource "google_cloudbuild_trigger" "trigger" {
     branch_name = var.branch != "master" ? "^${var.branch}$" : null
     tag_name    = var.branch == "master" ? ".*" : null
 
-    repo_name = "github_${var.repo}"
+    repo_name = var.repo
   }
 
   filename = "${var.branch}.cloudbuild.yaml"
